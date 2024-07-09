@@ -15,10 +15,11 @@
 
 ### 注意
 
-time-test 为测试Kernel的time函数是否准确，其结果只作为专家评审的参考，不计入总分，但time-test必须成功执行成绩才有效。
-
-- `lua`脚本和其他测试脚本要依赖`busybox`的`sh`功能。所以OS kernel首先需要支持`busybox`的`sh`功能。
-- 部分脚本会需要特定的OS功能（syscall, device file等），OS kernel需要一步一步地添加功能，以支持不同程序的不同执行方式。
+- time-test 为测试Kernel的time函数是否准确，其结果只作为专家评审的参考，不计入总分，但time-test必须成功执行成绩才有效。
+  - `lua`脚本和其他测试脚本要依赖`busybox`的`sh`功能。所以OS kernel首先需要支持`busybox`的`sh`功能。
+  - 部分脚本会需要特定的OS功能（syscall, device file等），OS kernel需要一步一步地添加功能，以支持不同程序的不同执行方式。
+- ext4文件系统镜像`sdcard.img`是用`mkfs.ext4`工具生成的。
+  - [C或Rust语言实现的ext4相关的库和OS参考](https://github.com/oscomp/os-competition-info/blob/main/ref-info.md#ext4%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%82%E8%80%83%E5%AE%9E%E7%8E%B0)
 
 由于LTP测试用例数量较多，执行时间较长，默认的test_all.sh中未包含启动ltp测试的命令。各参赛队伍可根据实际情况选择要运行的样例。
 运行单个样例的方法：
@@ -29,7 +30,6 @@ time-test 为测试Kernel的time函数是否准确，其结果只作为专家评
 ```
 ls ltp/testcases/bin/ | xargs -n 1 -I {} ./test-ltp.sh ltp/testcases/bin/{}
 ```
-
 
 ## 程序的运行环境
 示例程序的运行环境是Debian on Qemu RV64，搭建过程如下：

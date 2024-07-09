@@ -92,7 +92,7 @@ interrupts-test: .PHONY
 
 ltp: .PHONY
 	cd ltp-full-20240524 && ./configure --host=riscv64-linux-gnu --prefix /code/sdcard/ltp && make -j$(NPROC) && make install
-	cp scripts/ltp/ltp_testcode.sh sdcard/ltp_testcode.sh
+	cp scripts/ltp/* sdcard/
 
 sdcard: build_all .PHONY
 	dd if=/dev/zero of=sdcard.img count=2048 bs=1M

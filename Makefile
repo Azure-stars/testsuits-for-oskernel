@@ -91,7 +91,7 @@ interrupts-test: .PHONY
 	cp $@/$@-* sdcard/
 
 ltp: .PHONY
-	cd ltp-full-20240524 && ./configure --host=riscv64-linux-gnu --prefix /code/sdcard/ltp && make -j$(NPROC) && make install
+	cd ltp-full-20240524 && make autotools && ./configure --host=riscv64-linux-gnu --prefix /code/sdcard/ltp && make -j$(NPROC) && make install
 	cp scripts/ltp/* sdcard/
 
 sdcard: build_all .PHONY

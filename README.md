@@ -48,4 +48,4 @@ ls ltp/testcases/bin/ | xargs -n 1 -I {} ./test-ltp.sh ltp/testcases/bin/{}
 
 ## 构建测试用例
 
-docker run --rm -it -v $(pwd):/code --privileged --entrypoint make alphamj/os-contest:v7.7 -C /code sdcard
+docker run --rm -it -v $(pwd):/code --privileged --entrypoint make alphamj/os-contest:v7.8 -C /code sdcard

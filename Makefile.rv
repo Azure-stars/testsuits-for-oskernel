@@ -1,0 +1,47 @@
+NPROC = 16
+MUSL_PREFIX = riscv64-linux
+MUSL_GCC = $(MUSL_PREFIX)-gcc
+MUSL_STRIP = $(MUSL_PREFIX)-strip
+
+RAMDISK = sdcard/riscv
+
+
+all: basic busybox lua libc-test iozone
+
+
+basic: .PHONY
+	make -C basic/user all CHAPTER=7
+	cp -r basic/user/build/riscv64 $(RAMDISK)/basic/
+
+busybox: .PHONY
+	cp busybox-config-rv busybox/.config
+	make -C busybox CC="$(MUSL_GCC) -static" STRIP=$(MUSL_STRIP) -j$(NPROC)
+	$(MUSL_STRIP) busybox/busybox
+	cp busybox/busybox $(RAMDISK)/
+	cp scripts/busybox/* $(RAMDISK)/
+
+lua: .PHONY
+	make -C lua CC="$(MUSL_GCC) -static" -j $(NPROC)
+	$(MUSL_STRIP) lua/src/lua
+	cp lua/src/lua $(RAMDISK)/
+	cp scripts/lua/* $(RAMDISK)/
+
+libc-test: .PHONY
+	make -C libc-test disk -j $(NPROC)
+	cp -r libc-test/disk/* $(RAMDISK)/
+	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
+
+iozone: .PHONY
+	make -C iozone linux CC="$(MUSL_GCC) -static" -j $(NPROC)
+	$(MUSL_STRIP) iozone/iozone
+	cp iozone/iozone $(RAMDISK)/
+	cp scripts/iozone/* $(RAMDISK)/
+
+clean:
+	make -C basic/user clean
+	make -C busybox clean
+	make -C lua clean
+	make -C libc-test clean
+	make -C iozone clean
+
+.PHONY: 

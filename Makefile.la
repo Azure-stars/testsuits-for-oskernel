@@ -22,7 +22,7 @@ basic: .PHONY
 	cp -r basic/user/build/riscv64 $(RAMDISK)/basic/
 
 busybox: .PHONY
-	cp config/config.gnu.novec busybox/.config
+	cp config/busybox-config-la busybox/.config
 	make -C busybox -j $(NPROC)
 	cp busybox/busybox $(RAMDISK)/
 	cp scripts/busybox/* $(RAMDISK)/

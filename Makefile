@@ -1,5 +1,9 @@
 DOCKER ?= docker.educg.net/cg/os-contenst:20250119
 
+all: build-all
+
+build-all: build-rv build-la
+
 build-rv:
 	make -f Makefile.rv clean
 	make -f Makefile.rv

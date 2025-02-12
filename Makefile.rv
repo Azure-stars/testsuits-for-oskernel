@@ -5,6 +5,8 @@ MUSL_STRIP = $(MUSL_PREFIX)-strip
 
 RAMDISK = sdcard/riscv
 
+MUSL_LIB?=/opt/riscv64--musl--bleeding-edge-2020.08-1/riscv64-buildroot-linux-musl/sysroot/lib64/
+
 
 all: basic busybox lua libc-test iozone
 	mkdir -p $(RAMDISK)/lib/glibc
@@ -32,6 +34,11 @@ lua: .PHONY
 libc-test: .PHONY
 	make -C libc-test disk -j $(NPROC)
 	cp -r libc-test/disk/* $(RAMDISK)/
+	mkdir -p $(RAMDISK)/lib/musl
+	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(RAMDISK)/lib
+	cp $(MUSL_LIB)/libc.so $(RAMDISK)/lib/musl
+	rm -f $(RAMDISK)/lib/ld-musl-riscv64-sf.so.1
+	ln -s musl/libc.so $(RAMDISK)/lib/ld-musl-riscv64-sf.so.1
 	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
 
 iozone: .PHONY

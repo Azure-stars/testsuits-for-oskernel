@@ -12,7 +12,7 @@ RAMDISK := sdcard/loongarch
 
 all: busybox lua libc-test iozone
 	mkdir -p $(RAMDISK)/lib64
-	cp -d runtime/loongarch/lib64 $(RAMDISK)/
+	cp -r runtime/loongarch/lib64 $(RAMDISK)/
 	chmod +x $(RAMDISK)/*_testcode.sh
 
 # TODO: 编译基本测试样例
@@ -35,6 +35,8 @@ libc-bench: .PHONY
 libc-test: .PHONY
 	make -C libc-test disk -j $(NPROC) PREFIX=loongarch64-linux-musl- MUSL_LIB=$(PWD)/runtime/loongarch/lib64
 	cp -r libc-test/disk/* $(RAMDISK)/
+	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(RAMDISK)
+	cp runtime/loongarch/lib64/libc.so $(RAMDISK)
 	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
 
 

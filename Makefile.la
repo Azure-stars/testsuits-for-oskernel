@@ -1,0 +1,57 @@
+NPROC = 16
+
+GNU_CROSS_COMPILER_PREFIX := loongarch64-linux-gnu-
+GNU_CROSS_COMPILER_GCC    := $(GNU_CROSS_COMPILER_PREFIX)gcc
+GNU_STRIP := $(GNU_CROSS_COMPILER_PREFIX)strip
+
+
+MUSL_CROSS_COMPILER_PREFIX := loongarch64-linux-musl-
+MUSL_CROSS_COMPILER_GCC    := $(MUSL_CROSS_COMPILER_PREFIX)gcc
+
+RAMDISK := sdcard/loongarch
+
+all: busybox lua libc-test iozone
+	# TODO: 添加libc库
+	# mkdir -p $(RAMDISK)/lib/glibc
+	# cp -d /usr/riscv64-linux-gnu/lib/*.so* $(RAMDISK)/lib/glibc
+	# chmod +x $(RAMDISK)/*_testcode.sh
+
+# TODO: 编译基本测试样例
+basic: .PHONY
+	make -C basic/user all CHAPTER=7
+	cp -r basic/user/build/riscv64 $(RAMDISK)/basic/
+
+busybox: .PHONY
+	cp config/config.gnu.novec busybox/.config
+	make -C busybox -j $(NPROC)
+	cp busybox/busybox $(RAMDISK)/
+	cp scripts/busybox/* $(RAMDISK)/
+
+
+libc-bench: .PHONY
+	make -C libc-bench CC="$(GNU_CROSS_COMPILER_GCC) -static" -j $(NPROC)
+	$(GNU_STRIP) libc-bench/libc-bench
+	cp libc-bench/libc-bench $(RAMDISK)/libc-bench
+
+libc-test: .PHONY
+	make -C libc-test disk -j $(NPROC)
+	cp -r libc-test/disk/* $(RAMDISK)/
+	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
+
+
+lua: .PHONY
+	make -C lua CC="$(GNU_CROSS_COMPILER_GCC) -static" -j $(NPROC)
+	$(GNU_STRIP) lua/src/lua
+	mkdir -p $(RAMDISK)/lua
+	cp lua/src/lua $(RAMDISK)/lua
+	cp scripts/lua/* $(RAMDISK)/lua
+
+
+clean:
+	make -C basic/user clean
+	make -C busybox clean
+	make -C lua clean
+	make -C libc-test clean
+	make -C iozone clean
+
+.PHONY: 

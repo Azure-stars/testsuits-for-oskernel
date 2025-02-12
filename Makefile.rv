@@ -7,6 +7,9 @@ RAMDISK = sdcard/riscv
 
 
 all: basic busybox lua libc-test iozone
+	mkdir -p $(RAMDISK)/lib/glibc
+	cp -d /usr/riscv64-linux-gnu/lib/*.so* $(RAMDISK)/lib/glibc
+	chmod +x $(RAMDISK)/*_testcode.sh
 
 
 basic: .PHONY

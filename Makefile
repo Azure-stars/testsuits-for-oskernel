@@ -11,6 +11,8 @@ build-la:
 clean:
 	make -f Makefile.rv clean
 	rm -rf sdcard/riscv/*
+	make -f Makefile.la clean
+	rm -rf sdcard/loongarch/*
 
 docker:
 	docker run --rm -it -v .:/code --entrypoint bash $(DOCKER)

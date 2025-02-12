@@ -11,10 +11,9 @@ MUSL_CROSS_COMPILER_GCC    := $(MUSL_CROSS_COMPILER_PREFIX)gcc
 RAMDISK := sdcard/loongarch
 
 all: busybox lua libc-test iozone
-	# TODO: 添加libc库
-	# mkdir -p $(RAMDISK)/lib/glibc
-	# cp -d /usr/riscv64-linux-gnu/lib/*.so* $(RAMDISK)/lib/glibc
-	# chmod +x $(RAMDISK)/*_testcode.sh
+	mkdir -p $(RAMDISK)/lib64
+	cp -d runtime/loongarch/lib64 $(RAMDISK)/
+	chmod +x $(RAMDISK)/*_testcode.sh
 
 # TODO: 编译基本测试样例
 basic: .PHONY
@@ -34,7 +33,7 @@ libc-bench: .PHONY
 	cp libc-bench/libc-bench $(RAMDISK)/libc-bench
 
 libc-test: .PHONY
-	make -C libc-test disk -j $(NPROC)
+	make -C libc-test disk -j $(NPROC) PREFIX=loongarch64-linux-musl- MUSL_LIB=$(PWD)/runtime/loongarch/lib64
 	cp -r libc-test/disk/* $(RAMDISK)/
 	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
 

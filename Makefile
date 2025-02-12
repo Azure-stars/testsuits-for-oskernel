@@ -19,4 +19,4 @@ clean:
 	rm -rf sdcard/loongarch/*
 
 docker:
-	docker run --rm -it -v .:/code --entrypoint bash $(DOCKER)
+	docker run --rm -it -v .:/code --entrypoint bash -w /code $(DOCKER)

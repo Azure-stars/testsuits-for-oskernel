@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/busybox sh
 
+./busybox echo "#### OS COMP TEST GROUP START busybox ####"
 # RST=result.txt
 # if [ -f $RST ];then
 # 	rm $RST
@@ -23,3 +24,4 @@ do
 done
 
 # echo "TEST END" >> $RST
+./busybox echo "#### OS COMP TEST GROUP END busybox ####"

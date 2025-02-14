@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/busybox sh
+busybox echo "#### OS COMP TEST GROUP START iozone ####"
 busybox echo iozone automatic measurements
 iozone -a -r 1k -s 4m
 busybox echo iozone throughput write/read measurements
@@ -15,3 +16,4 @@ busybox echo iozone throughput pwrite/pread measurements
 iozone -t 4 -i 9 -i 10 -r 1k -s 1m
 busybox echo iozone throughtput pwritev/preadv measurements
 iozone -t 4 -i 11 -i 12 -r 1k -s 1m
+busybox echo "#### OS COMP TEST GROUP END iozone ####"

@@ -16,7 +16,9 @@ all: basic busybox lua libc-test iozone
 
 basic: .PHONY
 	make -C basic/user all CHAPTER=7
-	cp -r basic/user/build/riscv64 $(RAMDISK)/basic/
+	mkdir -p $(RAMDISK)/basic
+	cp -r basic/user/build/riscv64/* $(RAMDISK)/basic/
+	cp scripts/basic/* $(RAMDISK)
 
 busybox: .PHONY
 	cp config/busybox-config-rv busybox/.config

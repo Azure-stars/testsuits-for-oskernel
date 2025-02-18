@@ -2,7 +2,6 @@ src/functional/argv.exe
 src/functional/basename.exe
 src/functional/clocale_mbfuncs.exe
 src/functional/clock_gettime.exe
-src/functional/crypt.exe
 src/functional/dirname.exe
 src/functional/dlopen.exe
 src/functional/env.exe

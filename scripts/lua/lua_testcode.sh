@@ -1,5 +1,4 @@
-#!/busybox sh
-busybox echo "#### OS COMP TEST GROUP START lua ####"
+./busybox echo "#### OS COMP TEST GROUP START lua ####"
 
 ./test.sh date.lua
 ./test.sh file_io.lua
@@ -11,4 +10,4 @@ busybox echo "#### OS COMP TEST GROUP START lua ####"
 ./test.sh sort.lua
 ./test.sh strings.lua
 
-busybox echo "#### OS COMP TEST GROUP END lua ####"
+./busybox echo "#### OS COMP TEST GROUP END lua ####"

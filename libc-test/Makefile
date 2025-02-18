@@ -1,5 +1,3 @@
-MUSL_LIB?=/opt/riscv64--musl--bleeding-edge-2020.08-1/riscv64-buildroot-linux-musl/sysroot/lib64/
-PREFIX?=riscv64-buildroot-linux-musl-
 CC=$(PREFIX)gcc
 OBJCOPY=$(PREFIX)objcopy
 
@@ -24,7 +22,7 @@ CFLAGS += -Wno-unknown-pragmas -fno-builtin -frounding-math
 CFLAGS += -Werror=implicit-function-declaration -Werror=implicit-int -Werror=pointer-sign -Werror=pointer-arith
 CFLAGS += -Os -s
 CFLAGS += -Isrc/common/
-LDLIBS += -Os -s -lpthread -lm -lrt
+LDFLAGS += -Os -s -lpthread -lm -lrt
 
 # CFLAGS += -D_FILE_OFFSET_BITS=64
 # LDLIBS += -lcrypt -ldl -lresolv -lutil -lpthread
@@ -56,11 +54,10 @@ runtest: src/common/runtest.obj $(COMMON_OBJS)
 	$(CC) $(LDFLAGS) $^ -static -o runtest.exe
 
 static: $(COMMON_OBJS) $(STATIC_PREFIXED_OBJS) entry.c src/functional/tls_align_dso.obj
-	$(CC) $(LDFLAGS) -DSTATIC $^ -static -o entry-static.exe
+	$(CC)  -DSTATIC $^ -static -o entry-static.exe $(LDFLAGS)
 
-dynamic: $(DYNAMIC_PREFIXED_OBJS) $(DSO_SOS) $(COMMON_OBJS) entry.c
-	# $(CC) $(LDFLAGS) entry.c -DDYNAMIC $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) -Lsrc/functional -Lsrc/regression -ltls_align_dso -ltls_init_dso -ldlopen_dso -ltls_get_new-dtv_dso -o entry-dynamic.exe
-	$(CC) $(LDFLAGS) entry.c -DDYNAMIC $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) -Lsrc/functional -Lsrc/regression  -o entry-dynamic.exe -rdynamic
+dynamic:  $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) $(DSO_SOS) entry.c
+	$(CC) entry.c -DDYNAMIC $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) -Lsrc/functional -Lsrc/regression  -o entry-dynamic.exe -rdynamic $(LDFLAGS)
 
 common: $(COMMON_OBJS)
 
@@ -73,7 +70,7 @@ common: $(COMMON_OBJS)
 %.so : %.c
 	$(CC) $(CFLAGS) -shared -fPIC $^ -o $@ #$(dir $@)/lib$(notdir $@)
 
-run-all.sh: static dynamic runtest
+run-all.sh: runtest static dynamic
 	cat static.txt | xargs -I AA basename AA .exe | sed 's/-/_/g' | xargs -I BB printf "./runtest.exe -w entry-static.exe %s\n" BB > run-static.sh
 	cat dynamic.txt | xargs -I AA basename AA .exe | sed 's/-/_/g' | xargs -I BB printf "./runtest.exe -w entry-dynamic.exe %s\n" BB > run-dynamic.sh
 	echo "./run-static.sh" > run-all.sh

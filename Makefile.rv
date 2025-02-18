@@ -1,58 +1,44 @@
-NPROC = 16
-
-GNU_PREFIX = riscv64-linux-gnu
-GNU_GCC = $(GNU_PREFIX)-gcc
-GNU_STRIP = $(GNU_PREFIX)-strip
-
-MUSL_PREFIX = riscv64-linux
-MUSL_GCC = $(MUSL_PREFIX)-gcc
-MUSL_STRIP = $(MUSL_PREFIX)-strip
-
-RAMDISK = sdcard/riscv
-
-MUSL_LIB?=/opt/riscv64--musl--bleeding-edge-2020.08-1/riscv64-buildroot-linux-musl/sysroot/lib64/
-
+PREFIX ?= riscv64-linux-gnu-
+CC := $(PREFIX)gcc
+STRIP := $(PREFIX)strip
+DESTDIR ?= sdcard/riscv/glibc
 
 all: basic busybox lua libc-test iozone
-	mkdir -p $(RAMDISK)/lib/glibc
-	cp -d /usr/riscv64-linux-gnu/lib/*.so* $(RAMDISK)/lib/glibc
-	chmod +x $(RAMDISK)/*_testcode.sh
-
+	# mkdir -p $(DESTDIR)/lib/glibc
+	# cp -d /usr/riscv64-linux-gnu/lib/*.so* $(DESTDIR)/lib/glibc
+	# chmod +x $(DESTDIR)/*_testcode.sh
 
 basic: .PHONY
 	make -C basic/user all CHAPTER=7
-	mkdir -p $(RAMDISK)/basic
-	cp -r basic/user/build/riscv64/* $(RAMDISK)/basic/
-	cp scripts/basic/* $(RAMDISK)
+	mkdir -p $(DESTDIR)/basic
+	cp -r basic/user/build/riscv64/* $(DESTDIR)/basic/
+	cp scripts/basic/basic_testcode.sh $(DESTDIR)
 
 busybox: .PHONY
 	cp config/busybox-config-rv busybox/.config
-	make -C busybox CC="$(GNU_GCC) -static" STRIP=$(GNU_STRIP) -j$(NPROC)
-	$(GNU_STRIP) busybox/busybox
-	cp busybox/busybox $(RAMDISK)/
-	cp scripts/busybox/* $(RAMDISK)/
+	make -C busybox CC="$(CC) -static" STRIP=$(STRIP) -j
+	cp busybox/busybox $(DESTDIR)/
+	cp scripts/busybox/* $(DESTDIR)/
 
 lua: .PHONY
-	make -C lua CC="$(GNU_GCC) -static" -j $(NPROC)
-	$(GNU_STRIP) lua/src/lua
-	cp lua/src/lua $(RAMDISK)/
-	cp scripts/lua/* $(RAMDISK)/
+	make -C lua CC="$(CC) -static" -j $(NPROC)
+	make -C lua install DESTIDR=$(DESTDIR)
+	cp lua/src/lua $(DESTDIR)/
+	cp scripts/lua/* $(DESTDIR)/
 
 libc-test: .PHONY
-	make -C libc-test disk -j $(NPROC)
-	cp -r libc-test/disk/* $(RAMDISK)/
-	mkdir -p $(RAMDISK)/lib/musl
-	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(RAMDISK)/lib
-	cp $(MUSL_LIB)/libc.so $(RAMDISK)/lib/musl
-	rm -f $(RAMDISK)/lib/ld-musl-riscv64-sf.so.1
-	ln -s musl/libc.so $(RAMDISK)/lib/ld-musl-riscv64-sf.so.1
-	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
+	make -C libc-test disk PREFIX=$(PREFIX) -j 1
+	cp -r libc-test/disk/* $(DESTDIR)/
+	mkdir -p $(DESTDIR)/lib/
+	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(DESTDIR)/lib
+	rm $(DESTDIR)/run-all.sh
+	cp scripts/libc-test/libc-test_testcode.sh $(DESTDIR)
 
 iozone: .PHONY
-	make -C iozone linux CC="$(MUSL_GCC) -static" -j $(NPROC)
-	$(MUSL_STRIP) iozone/iozone
-	cp iozone/iozone $(RAMDISK)/
-	cp scripts/iozone/* $(RAMDISK)/
+	make -C iozone linux CC="$(CC)" -j 
+	$(STRIP) iozone/iozone
+	cp iozone/iozone $(DESTDIR)/
+	cp scripts/iozone/* $(DESTDIR)/
 
 clean:
 	make -C basic/user clean

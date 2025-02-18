@@ -7,6 +7,7 @@ GNU_STRIP := $(GNU_CROSS_COMPILER_PREFIX)strip
 
 MUSL_CROSS_COMPILER_PREFIX := loongarch64-linux-musl-
 MUSL_CROSS_COMPILER_GCC    := $(MUSL_CROSS_COMPILER_PREFIX)gcc
+MUSL_STRIP := $(MUSL_CROSS_COMPILER_PREFIX)strip
 
 RAMDISK := sdcard/loongarch
 
@@ -23,15 +24,17 @@ basic: .PHONY
 
 busybox: .PHONY
 	cp config/busybox-config-la busybox/.config
-	make -C busybox -j $(NPROC)
+	make -C busybox -j $(NPROC) CC="$(GNU_CROSS_COMPILER_GCC) -static" STRAP=$(GNU_STRIP)
 	cp busybox/busybox $(RAMDISK)/
 	cp scripts/busybox/* $(RAMDISK)/
 
+lua: .PHONY
+	make -C lua CC="$(GNU_CROSS_COMPILER_GCC) -static" -j $(NPROC)
+	$(GNU_STRIP) lua/src/lua
+	mkdir -p $(RAMDISK)/lua
+	cp lua/src/lua $(RAMDISK)/lua
+	cp scripts/lua/* $(RAMDISK)/lua
 
-libc-bench: .PHONY
-	make -C libc-bench CC="$(GNU_CROSS_COMPILER_GCC) -static" -j $(NPROC)
-	$(GNU_STRIP) libc-bench/libc-bench
-	cp libc-bench/libc-bench $(RAMDISK)/libc-bench
 
 libc-test: .PHONY
 	make -C libc-test disk -j $(NPROC) PREFIX=loongarch64-linux-musl- MUSL_LIB=$(PWD)/runtime/loongarch/lib64
@@ -41,13 +44,11 @@ libc-test: .PHONY
 	mv $(RAMDISK)/run-all.sh $(RAMDISK)/libctest_testcode.sh
 
 
-lua: .PHONY
-	make -C lua CC="$(GNU_CROSS_COMPILER_GCC) -static" -j $(NPROC)
-	$(GNU_STRIP) lua/src/lua
-	mkdir -p $(RAMDISK)/lua
-	cp lua/src/lua $(RAMDISK)/lua
-	cp scripts/lua/* $(RAMDISK)/lua
-
+iozone: .PHONY
+	make -C iozone linux CC="$(MUSL_CROSS_COMPILER_GCC) -static" -j $(NPROC)
+	$(MUSL_STRIP) iozone/iozone
+	cp iozone/iozone $(RAMDISK)/
+	cp scripts/iozone/* $(RAMDISK)/
 
 clean:
 	make -C basic/user clean

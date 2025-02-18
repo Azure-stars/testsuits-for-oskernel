@@ -35,6 +35,8 @@ clean:
 	rm -rf sdcard/riscv/*
 	make -f Makefile.la clean
 	rm -rf sdcard/loongarch/*
+	rm -f sdcard-la.img.gz
+	rm -f sdcard-rv.img.gz
 
 docker:
 	docker run --rm -it -v .:/code --entrypoint bash -w /code --privileged $(DOCKER)

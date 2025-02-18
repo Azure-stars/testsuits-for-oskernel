@@ -1,4 +1,9 @@
 NPROC = 16
+
+GNU_PREFIX = riscv64-linux-gnu
+GNU_GCC = $(GNU_PREFIX)-gcc
+GNU_STRIP = $(GNU_PREFIX)-strip
+
 MUSL_PREFIX = riscv64-linux
 MUSL_GCC = $(MUSL_PREFIX)-gcc
 MUSL_STRIP = $(MUSL_PREFIX)-strip
@@ -22,14 +27,14 @@ basic: .PHONY
 
 busybox: .PHONY
 	cp config/busybox-config-rv busybox/.config
-	make -C busybox CC="$(MUSL_GCC) -static" STRIP=$(MUSL_STRIP) -j$(NPROC)
-	$(MUSL_STRIP) busybox/busybox
+	make -C busybox CC="$(GNU_GCC) -static" STRIP=$(GNU_STRIP) -j$(NPROC)
+	$(GNU_STRIP) busybox/busybox
 	cp busybox/busybox $(RAMDISK)/
 	cp scripts/busybox/* $(RAMDISK)/
 
 lua: .PHONY
-	make -C lua CC="$(MUSL_GCC) -static" -j $(NPROC)
-	$(MUSL_STRIP) lua/src/lua
+	make -C lua CC="$(GNU_GCC) -static" -j $(NPROC)
+	$(GNU_STRIP) lua/src/lua
 	cp lua/src/lua $(RAMDISK)/
 	cp scripts/lua/* $(RAMDISK)/
 

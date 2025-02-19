@@ -3,19 +3,27 @@ CC := $(PREFIX)gcc
 STRIP := $(PREFIX)strip
 DESTDIR ?= sdcard/riscv/glibc
 
+ifneq (,$(findstring riscv64,$(PREFIX)))
+    ARCH := riscv64
+else ifneq (,$(findstring loongarch64,$(PREFIX)))
+    ARCH := loongarch64
+else
+    $(error "Unknown ARCH! It should be riscv64 or loongarch64")
+endif
+
 all: basic busybox lua libc-test iozone
 	# mkdir -p $(DESTDIR)/lib/glibc
 	# cp -d /usr/riscv64-linux-gnu/lib/*.so* $(DESTDIR)/lib/glibc
 	# chmod +x $(DESTDIR)/*_testcode.sh
 
 basic: .PHONY
-	make -C basic/user all CHAPTER=7
+	make -C basic/user all CHAPTER=7 ARCH=$(ARCH)
 	mkdir -p $(DESTDIR)/basic
-	cp -r basic/user/build/riscv64/* $(DESTDIR)/basic/
+	cp -r basic/user/build/$(ARCH)/* $(DESTDIR)/basic/
 	cp scripts/basic/basic_testcode.sh $(DESTDIR)
 
 busybox: .PHONY
-	cp config/busybox-config-rv busybox/.config
+	cp config/busybox-config-$(ARCH) busybox/.config
 	make -C busybox CC="$(CC) -static" STRIP=$(STRIP) -j
 	cp busybox/busybox $(DESTDIR)/
 	cp scripts/busybox/* $(DESTDIR)/

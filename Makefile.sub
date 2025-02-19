@@ -40,7 +40,7 @@ libc-test: .PHONY
 	mkdir -p $(DESTDIR)/lib/
 	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(DESTDIR)/lib
 	rm $(DESTDIR)/run-all.sh
-	cp scripts/libc-test/libc-test_testcode.sh $(DESTDIR)
+	cp scripts/libctest/libctest_testcode.sh $(DESTDIR)
 
 iozone: .PHONY
 	make -C iozone linux CC="$(CC)" -j 

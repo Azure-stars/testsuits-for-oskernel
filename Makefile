@@ -5,29 +5,28 @@ all: sdcard
 build-all: build-rv build-la
 
 build-rv:
-	make -f Makefile.rv clean
+	make -f Makefile.sub clean
 	mkdir -p sdcard/riscv/musl
-	make -f Makefile.rv PREFIX=riscv64-buildroot-linux-musl- DESTDIR=sdcard/riscv/musl
+	make -f Makefile.sub PREFIX=riscv64-buildroot-linux-musl- DESTDIR=sdcard/riscv/musl
 	cp /opt/riscv64--musl--bleeding-edge-2020.08-1/riscv64-buildroot-linux-musl/sysroot/lib/libc.so sdcard/riscv/musl/lib
 	sed -E 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-musl ####/g' sdcard/riscv/musl/*_testcode.sh
 
-	make -f Makefile.rv clean
+	make -f Makefile.sub clean
 	mkdir -p sdcard/riscv/glibc
-	make -f Makefile.rv PREFIX=riscv64-linux-gnu- DESTDIR=sdcard/riscv/glibc
+	make -f Makefile.sub PREFIX=riscv64-linux-gnu- DESTDIR=sdcard/riscv/glibc
 	cp /usr/riscv64-linux-gnu/lib/libc.so sdcard/riscv/glibc/lib
 	sed -E 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/riscv/glibc/*_testcode.sh
 
 build-la:
-	make -f Makefile.rv clean
+	make -f Makefile.sub clean
 	mkdir -p sdcard/loongarch/musl
-	make -f Makefile.rv PREFIX=loongarch64-linux-musl- DESTDIR=sdcard/loongarch/musl
+	make -f Makefile.sub PREFIX=loongarch64-linux-musl- DESTDIR=sdcard/loongarch/musl
 	cp /opt/musl-loongarch64-1.2.2/lib/libc.so sdcard/loongarch/musl/lib
-	make -f Makefile.rv clean
 	sed -E 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-musl ####/g' sdcard/loongarch/musl/*_testcode.sh
 
-
+	make -f Makefile.sub clean
 	mkdir -p sdcard/loongarch/glibc
-	make -f Makefile.rv PREFIX=loongarch64-linux-gnu- DESTDIR=sdcard/loongarch/glibc
+	make -f Makefile.sub PREFIX=loongarch64-linux-gnu- DESTDIR=sdcard/loongarch/glibc
 	cp /opt/gcc-13.2.0-loongarch64-linux-gnu/sysroot/usr/lib64/libc.so sdcard/loongarch/glibc/lib
 	sed -E 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/loongarch/glibc/*_testcode.sh
 
@@ -50,9 +49,8 @@ sdcard: build-all .PHONY
 
 
 clean:
-	make -f Makefile.rv clean
+	make -f Makefile.sub clean
 	rm -rf sdcard/riscv/*
-	make -f Makefile.la clean
 	rm -rf sdcard/loongarch/*
 	rm -f sdcard-la.img.gz
 	rm -f sdcard-rv.img.gz

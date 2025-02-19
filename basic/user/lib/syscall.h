@@ -4,6 +4,11 @@
 #include "syscall_arch.h"
 #include "syscall_ids.h"
 
+#ifdef SYS_fstat64
+#undef SYS_fstat
+#define SYS_fstat SYS_fstat64
+#endif
+
 #ifndef __scc
 #define __scc(X) ((long)(X))
 typedef long syscall_arg_t;

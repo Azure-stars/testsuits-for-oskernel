@@ -15,7 +15,7 @@ set(ASM_DIR asm)
 set(BIN_DIR bin)
 
 # Toolchain
-set(PREFIX ${ARCH}-unknown-elf-)
+set(PREFIX ${ARCH}-linux-gnu-)
 # riscv64-unknown-elf-
 
 if (${ARCH} STREQUAL riscv32)
@@ -38,7 +38,7 @@ set(CMAKE_C_LINK_FLAGS      "${LINK_FLAGS} -nostdlib -T ${CMAKE_CURRENT_SOURCE_D
 # Library
 aux_source_directory(lib LIBS)
 #set(LIBS ${ARCH_DIR}/crt.S ${LIBS})
-set(LIBS ${ARCH_DIR}/crt.S src/oscomp/clone.s ${LIBS})
+set(LIBS ${ARCH_DIR}/crt.S ${ARCH_DIR}/clone.s ${LIBS})
 add_library(ulib ${LIBS} syscall_ids)
 include_directories(include/)
 target_include_directories(ulib PRIVATE ${ARCH_DIR})
@@ -87,7 +87,8 @@ endforeach()
 
 add_custom_command(
         OUTPUT syscall_ids.h
+        COMMAND cp ${CMAKE_SOURCE_DIR}/${ARCH_DIR}/syscall_ids.h.in ${CMAKE_SOURCE_DIR}/lib/syscall_ids.h
         COMMAND sed ARGS -n -e s/__NR_/SYS_/p
         < ${CMAKE_SOURCE_DIR}/${ARCH_DIR}/syscall_ids.h.in
-        > ${CMAKE_SOURCE_DIR}/lib/syscall_ids.h
+        >> ${CMAKE_SOURCE_DIR}/lib/syscall_ids.h
 )

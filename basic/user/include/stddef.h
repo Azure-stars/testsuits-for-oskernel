@@ -33,7 +33,10 @@ typedef int64 intptr_t;
 typedef uint64 uintptr_t;
 #elif __riscv_xlen == 32
 typedef int32_t intptr_t;
-typedef uint32_t uintptr_t;
+typedef uint32 uintptr_t;
+#else
+typedef int64 intptr_t;
+typedef uint64 uintptr_t;
 #endif
 
 /* size_t is used for memory object sizes */
@@ -44,7 +47,7 @@ typedef int pid_t;
 
 #define NULL ((void *)0)
 
-#define SIGCHLD   17
+#define SIGCHLD 17
 
 #define va_start(ap, last) (__builtin_va_start(ap, last))
 #define va_arg(ap, type) (__builtin_va_arg(ap, type))
@@ -55,7 +58,7 @@ typedef __builtin_va_list va_list;
 #define O_RDONLY 0x000
 #define O_WRONLY 0x001
 #define O_RDWR 0x002 // 可读可写
-//#define O_CREATE 0x200
+// #define O_CREATE 0x200
 #define O_CREATE 0x40
 #define O_DIRECTORY 0x0200000
 
@@ -82,36 +85,63 @@ typedef struct
 typedef unsigned int mode_t;
 typedef long int off_t;
 
-struct kstat {
-        uint64 st_dev;
-        uint64 st_ino;
-        mode_t st_mode;
-        uint32 st_nlink;
-        uint32 st_uid;
-        uint32 st_gid;
-        uint64 st_rdev;
-        unsigned long __pad;
-        off_t st_size;
-        uint32 st_blksize;
-        int __pad2;
-        uint64 st_blocks;
-        long st_atime_sec;
-        long st_atime_nsec;
-        long st_mtime_sec;
-        long st_mtime_nsec;
-        long st_ctime_sec;
-        long st_ctime_nsec;
-        unsigned __unused[2];
+struct kstat
+{
+    uint64 st_dev;
+    uint64 st_ino;
+    mode_t st_mode;
+    uint32 st_nlink;
+    uint32 st_uid;
+    uint32 st_gid;
+    uint64 st_rdev;
+    unsigned long __pad;
+    off_t st_size;
+    uint32 st_blksize;
+    int __pad2;
+    uint64 st_blocks;
+    long st_atime_sec;
+    long st_atime_nsec;
+    long st_mtime_sec;
+    long st_mtime_nsec;
+    long st_ctime_sec;
+    long st_ctime_nsec;
+    unsigned __unused[2];
 };
 
+struct statx
+{
+    uint32 stx_mask;
+    uint32 stx_blksize;
+    uint64 stx_attributes;
+    uint32 stx_nlink;
+    uint32 stx_uid;
+    uint32 stx_gid;
+    uint16 stx_mode;
+    uint16 pad1;
+    uint64 stx_ino;
+    uint64 stx_size;
+    uint64 stx_blocks;
+    uint64 stx_attributes_mask;
+    struct
+    {
+        int64 tv_sec;
+        uint32 tv_nsec;
+        int32 pad;
+    } stx_atime, stx_btime, stx_ctime, stx_mtime;
+    uint32 stx_rdev_major;
+    uint32 stx_rdev_minor;
+    uint32 stx_dev_major;
+    uint32 stx_dev_minor;
+    uint64 spare[14];
+};
 
-
-struct linux_dirent64 {
-        uint64        d_ino;
-        int64         d_off;
-        unsigned short  d_reclen;
-        unsigned char   d_type;
-        char            d_name[];
+struct linux_dirent64
+{
+    uint64 d_ino;
+    int64 d_off;
+    unsigned short d_reclen;
+    unsigned char d_type;
+    char d_name[];
 };
 
 // for mmap
@@ -125,6 +155,6 @@ struct linux_dirent64 {
 #define MAP_FILE 0
 #define MAP_SHARED 0x01
 #define MAP_PRIVATE 0X02
-#define MAP_FAILED ((void *) -1)
+#define MAP_FAILED ((void *)-1)
 
 #endif // __STDDEF_H__

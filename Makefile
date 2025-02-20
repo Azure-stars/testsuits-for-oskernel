@@ -1,4 +1,4 @@
-DOCKER ?= docker.educg.net/cg/os-contenst:20250214
+DOCKER ?= docker.educg.net/cg/os-contest:20250214
 
 all: sdcard
 
@@ -32,7 +32,7 @@ build-la:
 
 sdcard: build-all .PHONY
 	dd if=/dev/zero of=sdcard-rv.img count=128 bs=1M
-	mkfs.vfat sdcard-rv.img
+	mkfs.ext4 sdcard-rv.img
 	mkdir -p mnt
 	mount sdcard-rv.img mnt
 	cp -rL sdcard/riscv/* mnt
@@ -40,7 +40,7 @@ sdcard: build-all .PHONY
 	gzip sdcard-rv.img
 
 	dd if=/dev/zero of=sdcard-la.img count=128 bs=1M
-	mkfs.vfat sdcard-la.img
+	mkfs.ext4 sdcard-la.img
 	mkdir -p mnt
 	mount sdcard-la.img mnt
 	cp -rL sdcard/riscv/* mnt

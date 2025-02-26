@@ -21,7 +21,7 @@ build-la:
 	make -f Makefile.sub clean
 	mkdir -p sdcard/loongarch/musl
 	make -f Makefile.sub PREFIX=loongarch64-linux-musl- DESTDIR=sdcard/loongarch/musl
-	cp /opt/musl-loongarch64-1.2.2/lib/libc.so sdcard/loongarch/musl/lib
+	cp /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/lib/libc.so sdcard/loongarch/musl/lib
 	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-musl ####/g' sdcard/loongarch/musl/*_testcode.sh
 
 	make -f Makefile.sub clean
@@ -43,7 +43,7 @@ sdcard: build-all .PHONY
 	mkfs.ext4 sdcard-la.img
 	mkdir -p mnt
 	mount sdcard-la.img mnt
-	cp -rL sdcard/riscv/* mnt
+	cp -rL sdcard/loongarch/* mnt
 	umount mnt
 	gzip sdcard-la.img
 

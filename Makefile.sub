@@ -30,7 +30,6 @@ busybox: .PHONY
 
 lua: .PHONY
 	make -C lua CC="$(CC) -static" -j $(NPROC)
-	make -C lua install DESTIDR=$(DESTDIR)
 	cp lua/src/lua $(DESTDIR)/
 	cp scripts/lua/* $(DESTDIR)/
 

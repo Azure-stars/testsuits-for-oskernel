@@ -49,8 +49,7 @@ binary:
 	@mkdir -p build
 	@cd build && cmake $(cmake_build_args) .. && make
 	@$(CP) src/oscomp/run-all.sh src/oscomp/text.txt build/${ARCH}/
-	# @mkdir build/${ARCH}/mnt && touch build/${ARCH}/mnt/test_mount
-	# @ln -s build/${ARCH}/ .
+	@mkdir build/${ARCH}/mnt && touch build/${ARCH}/mnt/test_mount
 
 pre:
 	@rm -rf $(out_dir)

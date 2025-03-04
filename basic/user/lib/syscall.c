@@ -76,7 +76,7 @@ int execve(const char *name, char *const argv[], char *const argp[])
     return syscall(SYS_execve, name, argv, argp);
 }
 
-int times(void *mytimes)
+clock_t times(void *mytimes)
 {
     return syscall(SYS_times, mytimes);
 }
@@ -164,6 +164,7 @@ int fstat(int fd, struct kstat *st)
         .st_ctime_sec = stx.stx_ctime.tv_sec,
         .st_ctime_nsec = stx.stx_ctime.tv_nsec,
     };
+    return res;
 #endif
 }
 

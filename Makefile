@@ -1,59 +1,48 @@
 DOCKER ?= docker.educg.net/cg/os-contest:20250226
+ARCH ?= riscv64
+
+MUSL_PREFIX ?= $(ARCH)-linux-musl
+MUSL_LIB_PATH ?= /opt/$(MUSL_PREFIX)-cross/$(MUSL_PREFIX)/lib/libc.so
+
+GLIBC_PREFIX ?= $(ARCH)-linux-gnu
+
+ifeq ($(ARCH), x86_64)
+GLIBC_SO_PATH ?= /lib/x86_64-linux-gnu/libc.so.6
+else
+GLIBC_SO_PATH ?= /usr/$(GLIBC_PREFIX)/lib/libc.so.6
+endif
 
 all: sdcard
 
-build-all: build-rv build-la
+build-all: build-musl build-glibc
 
-build-rv:
+build-musl:
 	make -f Makefile.sub clean
-	mkdir -p sdcard/riscv/musl
-	make -f Makefile.sub PREFIX=riscv64-buildroot-linux-musl- DESTDIR=sdcard/riscv/musl
-	cp /opt/riscv64--musl--bleeding-edge-2020.08-1/riscv64-buildroot-linux-musl/sysroot/lib/libc.so sdcard/riscv/musl/lib
-	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-musl ####/g' sdcard/riscv/musl/*_testcode.sh
+	mkdir -p sdcard/${ARCH}/musl
+	make -f Makefile.sub ARCH=${ARCH} PREFIX=${MUSL_PREFIX}- DESTDIR=sdcard/${ARCH}/musl
+	cp /opt/${MUSL_PREFIX}-cross/${MUSL_PREFIX}/lib/libc.so sdcard/${ARCH}/musl/lib
+	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-musl ####/g' sdcard/${ARCH}/musl/*_testcode.sh
 
+build-glibc:
 	make -f Makefile.sub clean
-	mkdir -p sdcard/riscv/glibc
-	make -f Makefile.sub PREFIX=riscv64-linux-gnu- DESTDIR=sdcard/riscv/glibc
-	cp /usr/riscv64-linux-gnu/lib/libc.so sdcard/riscv/glibc/lib
-	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/riscv/glibc/*_testcode.sh
-
-build-la:
-	make -f Makefile.sub clean
-	mkdir -p sdcard/loongarch/musl
-	make -f Makefile.sub PREFIX=loongarch64-linux-musl- DESTDIR=sdcard/loongarch/musl
-	cp /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/lib/libc.so sdcard/loongarch/musl/lib
-	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-musl ####/g' sdcard/loongarch/musl/*_testcode.sh
-
-	make -f Makefile.sub clean
-	mkdir -p sdcard/loongarch/glibc
-	make -f Makefile.sub PREFIX=loongarch64-linux-gnu- DESTDIR=sdcard/loongarch/glibc
-	cp /opt/gcc-13.2.0-loongarch64-linux-gnu/sysroot/usr/lib64/libc.so sdcard/loongarch/glibc/lib
-	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/loongarch/glibc/*_testcode.sh
+	mkdir -p sdcard/${ARCH}/glibc
+	make -f Makefile.sub ARCH=${ARCH} PREFIX=${GLIBC_PREFIX}- DESTDIR=sdcard/${ARCH}/glibc
+	cp ${GLIBC_SO_PATH} sdcard/${ARCH}/glibc/lib
+	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/${ARCH}/glibc/*_testcode.sh
 
 sdcard: build-all .PHONY
-	dd if=/dev/zero of=sdcard-rv.img count=128 bs=1M
-	mkfs.ext4 sdcard-rv.img
+	dd if=/dev/zero of=sdcard-${ARCH}.img count=128 bs=1M
+	mkfs.ext4 sdcard-${ARCH}.img
 	mkdir -p mnt
-	mount sdcard-rv.img mnt
-	cp -rL sdcard/riscv/* mnt
+	mount sdcard-${ARCH}.img mnt
+	cp -rL sdcard/${ARCH}/* mnt
 	umount mnt
-	gzip sdcard-rv.img
-
-	dd if=/dev/zero of=sdcard-la.img count=128 bs=1M
-	mkfs.ext4 sdcard-la.img
-	mkdir -p mnt
-	mount sdcard-la.img mnt
-	cp -rL sdcard/loongarch/* mnt
-	umount mnt
-	gzip sdcard-la.img
-
+	gzip sdcard-${ARCH}.img
 
 clean:
-	make -f Makefile.sub clean
-	rm -rf sdcard/riscv/*
-	rm -rf sdcard/loongarch/*
-	rm -f sdcard-la.img.gz
-	rm -f sdcard-rv.img.gz
+	make -f Makefile.sub ARCH=${ARCH} clean
+	rm -rf sdcard/${ARCH}/*
+	rm -rf sdcard-${ARCH}.img.gz
 
 docker:
 	docker run --rm -it -v .:/code --entrypoint bash -w /code --privileged $(DOCKER)

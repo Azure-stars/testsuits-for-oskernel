@@ -1,4 +1,4 @@
-DOCKER ?= docker.educg.net/cg/os-contest:20250226
+DOCKER ?= alicesama/os-contest-image:v0.1
 ARCH ?= riscv64
 
 MUSL_PREFIX ?= $(ARCH)-linux-musl

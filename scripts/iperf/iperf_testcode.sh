@@ -2,6 +2,10 @@ host="127.0.0.1"
 port="5001"
 iperf="./iperf3"
 
+
+./busybox echo "#### OS COMP TEST GROUP START iperf ####"
+
+
 run_iperf() {
     name=$1
     args=$2
@@ -33,3 +37,6 @@ run_iperf "PARALLEL_TCP" "-P 5"
 #reverse test (server sends, client recieves)
 run_iperf "REVERSE_UDP" "-u -R -b 1000G"
 run_iperf "REVERSE_TCP" "-R"
+
+
+./busybox echo "#### OS COMP TEST GROUP END iperf ####"

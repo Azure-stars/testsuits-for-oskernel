@@ -12,7 +12,7 @@ else
     $(error "Unknown ARCH! It should be riscv64 or loongarch64")
 endif
 
-all: basic busybox lua libc-test iozone unixbench iperf
+all: basic busybox lua libc-test iozone unixbench iperf libcbench
 
 
 basic: .PHONY
@@ -53,6 +53,13 @@ unixbench: .PHONY
 
 iperf: .PHONY
 	cd iperf && ./build.sh $(ABS_DESTDIR)
+	cp scripts/iperf/* $(DESTDIR)/
+
+libcbench: .PHONY
+	make -C libc-bench CC="$(CC)" -j $(NPROC)
+	$(STRIP) libc-bench/libc-bench
+	cp libc-bench/libc-bench $(DESTDIR)
+	cp scripts/libcbench/* $(DESTDIR)/
 
 clean:
 	make -C basic/user clean
@@ -61,5 +68,7 @@ clean:
 	make -C libc-test clean
 	make -C iozone clean
 	make -C UnixBench clean
+	make -C iperf clean
+	make -C libc-bench clean
 
 .PHONY: 

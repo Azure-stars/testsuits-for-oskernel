@@ -2,6 +2,8 @@
 
 #export CC=gcc
 
+./busybox echo "#### OS COMP TEST GROUP START unixbench ####"
+
 ./dhry2reg 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench DHRY2 test(lps): "$0}'
 ./whetstone-double 10 | ./busybox grep -o "COUNT|[[:digit:]]\+.[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+.[[:digit:]]\+" | ./busybox awk '{print "Unixbench WHETSTONE test(MFLOPS): "$0}'
 ./syscall 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SYSCALL test(lps): "$0}'
@@ -37,3 +39,5 @@ UB_BINDIR=./ ./execl 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox g
 ./double 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench DOUBLE test(lps): "$0}'
 ./hanoi 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench HANOI test(lps): "$0}'
 ./syscall 10 exec | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench EXEC test(lps): "$0}'
+
+./busybox echo "#### OS COMP TEST GROUP END unixbench ####"

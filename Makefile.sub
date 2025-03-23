@@ -11,10 +11,8 @@ else
     $(error "Unknown ARCH! It should be riscv64 or loongarch64")
 endif
 
-all: basic busybox lua libc-test iozone
-	# mkdir -p $(DESTDIR)/lib/glibc
-	# cp -d /usr/riscv64-linux-gnu/lib/*.so* $(DESTDIR)/lib/glibc
-	# chmod +x $(DESTDIR)/*_testcode.sh
+all: basic busybox lua libc-test iozone unixbench
+
 
 basic: .PHONY
 	make -C basic/user all CHAPTER=7 ARCH=$(ARCH)
@@ -47,11 +45,17 @@ iozone: .PHONY
 	cp iozone/iozone $(DESTDIR)/
 	cp scripts/iozone/* $(DESTDIR)/
 
+unixbench: .PHONY
+	make -C UnixBench CC="$(CC)" -j $(NPROC) ARCH=$(ARCH) all
+	cp UnixBench/pgms/* $(DESTDIR)/
+	cp scripts/unixbench/*.sh $(DESTDIR)/
+
 clean:
 	make -C basic/user clean
 	make -C busybox clean
 	make -C lua clean
 	make -C libc-test clean
 	make -C iozone clean
+	make -C UnixBench clean
 
 .PHONY: 

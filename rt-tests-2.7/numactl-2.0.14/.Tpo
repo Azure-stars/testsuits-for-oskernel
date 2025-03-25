@@ -1,0 +1,66 @@
+shm.o: shm.c \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdc-predef.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdio.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/features.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/alltypes.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdlib.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/alloca.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/string.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/strings.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/mman.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/mman.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/ipc.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/ipc.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/ipcstat.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/shm.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/shm.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/fcntl.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/fcntl.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/fcntl.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/stat.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/stat.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdarg.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/errno.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/errno.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/unistd.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/posix.h \
+ numa.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stddef.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/types.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/endian.h \
+ /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/select.h \
+ numaif.h numaint.h util.h shm.h
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdc-predef.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdio.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/features.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/alltypes.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdlib.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/alloca.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/string.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/strings.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/mman.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/mman.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/ipc.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/ipc.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/ipcstat.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/shm.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/shm.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/fcntl.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/fcntl.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/fcntl.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/stat.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/stat.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stdarg.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/errno.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/errno.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/unistd.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/bits/posix.h:
+numa.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/stddef.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/types.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/endian.h:
+/opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/include/sys/select.h:
+numaif.h:
+numaint.h:
+util.h:
+shm.h:

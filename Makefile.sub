@@ -63,7 +63,10 @@ libcbench: .PHONY
 	
 lmbench_src: .PHONY
 	make -C lmbench_src CC="$(CC)" -j $(NPROC)
-	find lmbench_src/bin/build -type f -executable -exec cp {} ${DESTDIR}/ 
+	find lmbench_src/bin/build -type f -executable -exec cp {} ${DESTDIR}/
+
+cyclictest:  .PHONY
+	make -C rt-tests-2.7 CROSS_COMPILE=$(PREFIX)	   
 
 clean:
 	make -C basic/user clean
@@ -75,5 +78,7 @@ clean:
 	make -C iperf clean
 	make -C libc-bench clean
 	make -C lmbench_src clean
+	make -C rt-tests-2.7 clean
+	make -C rt-tests-2.7/numactl-2.0.14 distclean
 
 .PHONY: 

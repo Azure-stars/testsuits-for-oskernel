@@ -44,7 +44,8 @@ ifeq ($(CROSS_COMPILE), loongarch64-linux-musl-)
 endif
 
 ifeq ($(CROSS_COMPILE), riscv64-buildroot-linux-musl-)
-    CFLAGS += -I/opt/riscv64-linux-musl-cross/riscv64-linux-musl/include/
+    CFLAGS1 += -I/opt/riscv64-linux-musl-cross/riscv64-linux-musl/include/
+    CFLAGS += -DLOONGARCH_MUSL
 endif
 CPPFLAGS += -D_GNU_SOURCE -Isrc/include
 LDFLAGS ?=
@@ -119,7 +120,7 @@ VPATH	+= src/ssdd:
 VPATH	+= src/oslat:
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	$(CC) -D VERSION=$(VERSION) -c $< $(CFLAGS) $(CPPFLAGS) -o $@
+	$(CC) -D VERSION=$(VERSION) -c $< $(CFLAGS) $(CFLAGS1) $(CPPFLAGS) -o $@
 
 # Pattern rule to generate dependency files from .c files
 $(OBJDIR)/%.d: %.c | $(OBJDIR)
@@ -198,7 +199,8 @@ $(OBJDIR)/librttest.a: $(LIBOBJS)
 
 LIBNUMAOBJS =$(addprefix $(OBJDIR)/,rt-numa.o)
 $(OBJDIR)/librttestnuma.a: $(LIBNUMAOBJS)
-	cd numactl-2.0.14 && make distclean
+	rm -fr numactl-2.0.14
+	tar zxf numactl-2.0.14.tar.gz
 	cd numactl-2.0.14 && ./configure --host=$(HOST) && CC=$(CC) make -j 10
 	pwd
 	$(AR) rcs $@ $^

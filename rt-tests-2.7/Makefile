@@ -199,6 +199,9 @@ $(OBJDIR)/librttest.a: $(LIBOBJS)
 
 LIBNUMAOBJS =$(addprefix $(OBJDIR)/,rt-numa.o)
 $(OBJDIR)/librttestnuma.a: $(LIBNUMAOBJS)
+	rm -fr numactl-2.0.14
+	tar zxf numactl-2.0.14.tar.gz
+	echo $(HOST)
 	cd numactl-2.0.14 && ./configure --host=$(HOST) && CC=$(CC) make -j 10
 	pwd
 	$(AR) rcs $@ $^

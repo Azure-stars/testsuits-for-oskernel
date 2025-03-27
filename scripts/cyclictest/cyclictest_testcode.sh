@@ -1,3 +1,6 @@
+
+./busybox echo "#### OS COMP TEST GROUP START cyclictest ####"
+
 run_cyclictest() {
     echo "====== cyclictest $1 begin ======"
     ./cyclictest $2
@@ -31,3 +34,6 @@ else
 fi
 sleep 1
 echo "====== kill hackbench: $ans ======"
+
+
+./busybox echo "#### OS COMP TEST GROUP END cyclictest ####"

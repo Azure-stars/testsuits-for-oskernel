@@ -2,7 +2,7 @@
 
 make clean
 
-if [[ "$1" == *"riscv64"* ]]; then
+if [[ "$1" == *"riscv"* ]]; then
     if [[ "$1" == *"musl"* ]]; then
         ./configure  --prefix=$1 --host=riscv64-linux-musl CC=riscv64-buildroot-linux-musl-gcc
     else

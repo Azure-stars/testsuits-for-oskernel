@@ -12,7 +12,7 @@ else
     $(error "Unknown ARCH! It should be riscv64 or loongarch64")
 endif
 
-all: basic busybox lua libc-test iozone unixbench iperf libcbench lmbench
+all: basic busybox lua libc-test iozone unixbench iperf libcbench lmbench_src cyclictest
 
 
 basic: .PHONY
@@ -71,6 +71,10 @@ cyclictest:  .PHONY
 	cp rt-tests-2.7/cyclictest ${DESTDIR}/
 	cp rt-tests-2.7/hackbench ${DESTDIR}/
 
+ltp: .PHONY
+	cd ltp-full-20240524 && ./build-oscomp.sh $(ABS_DESTDIR)/ltp
+	cp scripts/ltp/* $(DESTDIR)/
+
 clean:
 	make -C basic/user clean
 	make -C busybox clean
@@ -83,5 +87,6 @@ clean:
 	-make -C lmbench_src clean
 	make -C rt-tests-2.7 clean
 	rm -fr rt-test2-2.7/numactl-2.0.14
+	make -C ltp-full-20240524 clean
 
 .PHONY: 

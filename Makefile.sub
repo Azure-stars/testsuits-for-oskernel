@@ -66,7 +66,10 @@ lmbench_src: .PHONY
 	find lmbench_src/bin/build -type f -executable -exec cp {} ${DESTDIR}/
 
 cyclictest:  .PHONY
-	make -C rt-tests-2.7 CROSS_COMPILE=$(PREFIX)	   
+	make -C rt-tests-2.7 clean	
+	make -C rt-tests-2.7 CROSS_COMPILE=$(PREFIX)
+	cp rt-tests-2.7/cyclictest ${DESTDIR}/
+	cp rt-tests-2.7/hackbench ${DESTDIR}/
 
 clean:
 	make -C basic/user clean

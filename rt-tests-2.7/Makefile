@@ -119,7 +119,8 @@ VPATH	+= src/queuelat:
 VPATH	+= src/ssdd:
 VPATH	+= src/oslat:
 
-$(OBJDIR)/%.o: %.c | $(OBJDIR)
+
+$(OBJDIR)/%.o: %.c | $(OBJDIR) 
 	$(CC) -D VERSION=$(VERSION) -c $< $(CFLAGS) $(CFLAGS1) $(CPPFLAGS) -o $@
 
 # Pattern rule to generate dependency files from .c files
@@ -127,7 +128,14 @@ $(OBJDIR)/%.d: %.c | $(OBJDIR)
 	@$(CC) -MM $(CFLAGS) $(CPPFLAGS) $< | sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' > $@ || rm -f $@
 
 .PHONY: all
-all: $(TARGETS) hwlatdetect get_cyclictest_snapshot | $(OBJDIR)
+all: extract_numactl $(TARGETS) hwlatdetect get_cyclictest_snapshot | $(OBJDIR)
+
+.PHONY: extract_numactl
+extract_numactl:
+	rm -fr numactl-2.0.14
+	tar zxf numactl-2.0.14.tar.gz
+	echo $(HOST)
+	cd numactl-2.0.14 && ./configure --host=$(HOST) && CC=$(CC) make -j 10
 
 $(OBJDIR):
 	mkdir $(OBJDIR)
@@ -199,10 +207,6 @@ $(OBJDIR)/librttest.a: $(LIBOBJS)
 
 LIBNUMAOBJS =$(addprefix $(OBJDIR)/,rt-numa.o)
 $(OBJDIR)/librttestnuma.a: $(LIBNUMAOBJS)
-	rm -fr numactl-2.0.14
-	tar zxf numactl-2.0.14.tar.gz
-	echo $(HOST)
-	cd numactl-2.0.14 && ./configure --host=$(HOST) && CC=$(CC) make -j 10
 	pwd
 	$(AR) rcs $@ $^
 

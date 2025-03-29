@@ -1,6 +1,6 @@
 # 2025年系统能力培养赛操作系统赛题目
 
-本项目是2025年系统能力培养赛操作系统赛题目，包括basic、busybox、iozone、libc-test、lua五类。
+本项目是2025年系统能力培养赛操作系统赛题目，包括basic、busybox、iozone、libc-test、lua、iperf、libc-bench、lmbench、ltp、netperf、cyclictest 十一类。
 
 ## 构建方法
 

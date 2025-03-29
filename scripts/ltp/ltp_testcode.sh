@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "#### OS COMP TEST GROUP START ltp ####"
+
 # 定义目标目录
 target_dir="ltp/testcases/bin"
 
@@ -17,3 +19,6 @@ for file in "$target_dir"/*; do
     echo "FAIL LTP CASE $(basename "$file") : $ret"
   fi
 done
+
+
+echo "#### OS COMP TEST GROUP END ltp ####"

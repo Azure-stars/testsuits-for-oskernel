@@ -1,6 +1,9 @@
 ip="127.0.0.1"
 port=12865
 
+
+./busybox echo "#### OS COMP TEST GROUP START netperf ####"
+
 run_netperf() {
     echo "====== netperf $1 begin ======"
     ./netperf -H $ip -p $port -t $1 -l 1 -- $2
@@ -22,3 +25,6 @@ run_netperf TCP_RR      "-s 16k -S 16k -m 1k -M 1k -r 64,64 -R 1"
 run_netperf TCP_CRR     "-s 16k -S 16k -m 1k -M 1k -r 64,64 -R 1"
 
 kill -9 $server_pid
+
+
+./busybox echo "#### OS COMP TEST GROUP START unixbench ####"

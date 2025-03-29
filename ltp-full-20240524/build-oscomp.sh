@@ -8,20 +8,21 @@
 
 set -ex
 
-# make clean
+make clean
+make autotools
 
 if [[ "$1" == *"riscv"* ]]; then
     if [[ "$1" == *"musl"* ]]; then
-        ./configure  --prefix=$1/ltp --host=riscv64-linux-musl CC=riscv64-linux-musl-gcc --with-target-cflags='-march=rv64gc' --without-tirpc
+        ./configure  --prefix=/$1/ltp --host=riscv64-linux-musl CC=riscv64-linux-musl-gcc --with-target-cflags='-march=rv64gc' --without-tirpc
     else
-        ./configure  --prefix=$1/ltp --host=riscv64-linux-gnu CC=riscv64-linux-gnu-gcc --without-tirpc
+        ./configure  --prefix=/$1/ltp --host=riscv64-linux-gnu CC=riscv64-linux-gnu-gcc --without-tirpc
     fi
 else
     if [[ "$1" == *"musl"* ]]; then
-        ./configure  --prefix=$1/ltp --host=loongarch64-linux-musl CC=loongarch64-linux-musl-gcc --without-tirpc
+        ./configure  --prefix=/$1/ltp --host=loongarch64-linux-musl CC=loongarch64-linux-musl-gcc --without-tirpc
     else
-        ./configure  --prefix=$1/ltp --host=loongarch64-linux-gnu CC=loongarch64-linux-gnu-gcc --without-tirpc
+        ./configure  --prefix=/$1/ltp --host=loongarch64-linux-gnu CC=loongarch64-linux-gnu-gcc --without-tirpc
     fi
 fi
 
-make V=1 -j  && make install
+make V=1 -j  && make install DESTDIR=/

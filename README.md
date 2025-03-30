@@ -3,7 +3,7 @@
 本项目是2025年系统能力培养赛操作系统赛题目，包括basic、busybox、lua、libctest、iozone、unixbench、iperf、libcbench、lmbench、netperf、cyclictest和LTP共12组测试题目。
 
 **注：**
-**对上述每个测试题目，为帮助同学理解，我们考虑给出题目描述、编译方法、样例输出、评分依据四个部分的测例题目说明信息，相关信息放在[oskernel-testsuits-cooperation仓库](https://github.com/oscomp/oskernel-testsuits-cooperation/tree/master)。我们希望能够有志愿者同学帮助我们进一步完成剩余的测例题目说明信息。**
+**对上述测试题目，为帮助同学理解，我们考虑给出题目描述、编译方法、样例输出、评分依据四个部分的测例题目说明信息，相关信息放在[oskernel-testsuits-cooperation仓库](https://github.com/oscomp/oskernel-testsuits-cooperation/tree/master)。我们希望能够有志愿者同学帮助我们进一步完成剩余的测例题目说明信息。**
 
 **请愿意做志愿者的同学参考已经给出basic、busybox、lua等已完成的测例题目说明信息，查看[信息提交指导帮助](https://github.com/oscomp/oskernel-testsuits-cooperation/blob/master/README.md)。**
 

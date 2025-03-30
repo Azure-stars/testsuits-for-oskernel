@@ -5,7 +5,7 @@
 **注：**
 **对上述每个测试题目，为帮助同学理解，我们考虑给出题目描述、编译方法、样例输出、评分依据四个部分的测例题目说明信息，相关信息放在[oskernel-testsuits-cooperation仓库](https://github.com/oscomp/oskernel-testsuits-cooperation/tree/master)。我们希望能够有志愿者同学帮助我们进一步完成剩余的测例题目说明信息。**
 
-**请愿意做志愿者的同学参考已经给出basic、busybox、lua等测例题目说明信息，查看[oskernel-testsuits-cooperation指导信息](https://github.com/oscomp/oskernel-testsuits-cooperation/blob/master/README.md)，提交或改进测例题目说明信息，以[Pull request的形式在本仓库Pull requests中呈现。需要了解的具体操作如下面的内容所示。**
+**请愿意做志愿者的同学参考已经给出basic、busybox、lua等测例题目说明信息，查看[信息提交指导帮助](https://github.com/oscomp/oskernel-testsuits-cooperation/blob/master/README.md)**
 
 **志愿者工作是本次比赛评选优秀组织奖和技术贡献奖的重要参考依据。**
 

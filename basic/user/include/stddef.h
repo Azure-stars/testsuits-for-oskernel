@@ -74,40 +74,59 @@ typedef struct
     uint64 usec; // 微秒数
 } TimeVal;
 
-typedef struct
-{
-    uint64 dev;    // 文件所在磁盘驱动器号，不考虑
-    uint64 ino;    // inode 文件所在 inode 编号
-    uint32 mode;   // 文件类型
-    uint32 nlink;  // 硬链接数量，初始为1
-    uint64 pad[7]; // 无需考虑，为了兼容性设计
-} Stat;
-
 typedef unsigned int mode_t;
 typedef long int off_t;
 
+#if defined(__x86_64__)
 struct kstat
 {
-    uint64 st_dev;
-    uint64 st_ino;
-    mode_t st_mode;
-    uint32 st_nlink;
-    uint32 st_uid;
-    uint32 st_gid;
-    uint64 st_rdev;
-    unsigned long __pad;
-    off_t st_size;
-    uint32 st_blksize;
-    int __pad2;
-    uint64 st_blocks;
-    long st_atime_sec;
-    long st_atime_nsec;
-    long st_mtime_sec;
-    long st_mtime_nsec;
-    long st_ctime_sec;
-    long st_ctime_nsec;
-    unsigned __unused[2];
+    unsigned long st_dev;
+    unsigned long st_ino;
+    unsigned long st_nlink;
+
+    unsigned int st_mode;
+    unsigned int st_uid;
+    unsigned int st_gid;
+    unsigned int __pad0;
+    unsigned long st_rdev;
+    long st_size;
+    long st_blksize;
+    long st_blocks; /* Number 512-byte blocks allocated. */
+
+    unsigned long st_atime_sec;
+    unsigned long st_atime_nsec;
+    unsigned long st_mtime_sec;
+    unsigned long st_mtime_nsec;
+    unsigned long st_ctime_sec;
+    unsigned long st_ctime_nsec;
+    long __unused[3];
 };
+#else
+struct kstat
+{
+    unsigned long st_dev;  /* Device.  */
+    unsigned long st_ino;  /* File serial number.  */
+    unsigned int st_mode;  /* File mode.  */
+    unsigned int st_nlink; /* Link count.  */
+    unsigned int st_uid;   /* User ID of the file's owner.  */
+    unsigned int st_gid;   /* Group ID of the file's group. */
+    unsigned long st_rdev; /* Device number, if device.  */
+    unsigned long __pad1;
+    long st_size;   /* Size of file, in bytes.  */
+    int st_blksize; /* Optimal block size for I/O.  */
+    int __pad2;
+    long st_blocks;    /* Number 512-byte blocks allocated. */
+    long st_atime_sec; /* Time of last access.  */
+    unsigned long st_atime_nsec;
+    long st_mtime_sec; /* Time of last modification.  */
+    unsigned long st_mtime_nsec;
+    long st_ctime_sec; /* Time of last status change.  */
+    unsigned long st_ctime_nsec;
+    unsigned int __unused4;
+    unsigned int __unused5;
+};
+
+#endif
 
 struct statx
 {

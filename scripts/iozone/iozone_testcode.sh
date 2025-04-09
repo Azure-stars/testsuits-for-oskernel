@@ -1,3 +1,4 @@
+#! ./busybox sh
 ./busybox echo "#### OS COMP TEST GROUP START iozone ####"
 ./busybox echo iozone automatic measurements
 ./iozone -a -r 1k -s 4m

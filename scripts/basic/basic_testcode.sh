@@ -1,5 +1,4 @@
-./busybox echo "#### OS COMP TEST GROUP START basic-musl ####"
-cd ./basic
-./run-all.sh
-cd ..
-./busybox echo "#### OS COMP TEST GROUP END basic-musl ####"
+#!./busybox sh
+./busybox echo "#### OS COMP TEST GROUP START basic ####"
+./baisc/run-all.sh
+./busybox echo "#### OS COMP TEST GROUP END basic ####"

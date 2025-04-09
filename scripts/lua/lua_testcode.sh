@@ -1,3 +1,5 @@
+#!./busybox sh
+
 ./busybox echo "#### OS COMP TEST GROUP START lua ####"
 
 ./test.sh date.lua

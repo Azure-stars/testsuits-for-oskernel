@@ -1,4 +1,4 @@
-#!/bin/busybox sh
+#!./busybox sh
 
 ./lua $1
 if [ $? == 0 ]; then

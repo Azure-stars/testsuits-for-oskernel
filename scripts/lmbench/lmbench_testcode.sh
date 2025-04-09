@@ -1,4 +1,4 @@
-#!/bin/bash
+#!./busybox sh
 
 ./busybox echo "#### OS COMP TEST GROUP START lmbench ####"
 

@@ -74,8 +74,11 @@ common: $(COMMON_OBJS)
 	$(CC) $(CFLAGS) -shared -fPIC $^ -o $@ #$(dir $@)/lib$(notdir $@)
 
 run-all.sh: runtest static dynamic
-	cat static.txt | xargs -I AA basename AA .exe | sed 's/-/_/g' | xargs -I BB printf "./runtest.exe -w entry-static.exe %s\n" BB > run-static.sh
-	cat dynamic.txt | xargs -I AA basename AA .exe | sed 's/-/_/g' | xargs -I BB printf "./runtest.exe -w entry-dynamic.exe %s\n" BB > run-dynamic.sh
+	echo "#!./busybox sh" > run-all.sh
+	echo "#!./busybox sh" > run-static.sh
+	echo "#!./busybox sh" > run-dynamic.sh
+	cat static.txt | xargs -I AA basename AA .exe | sed 's/-/_/g' | xargs -I BB printf "./runtest.exe -w entry-static.exe %s\n" BB >> run-static.sh
+	cat dynamic.txt | xargs -I AA basename AA .exe | sed 's/-/_/g' | xargs -I BB printf "./runtest.exe -w entry-dynamic.exe %s\n" BB >> run-dynamic.sh
 	echo "./run-static.sh" > run-all.sh
 	echo "./run-dynamic.sh" >> run-all.sh
 	chmod +x run-*.sh

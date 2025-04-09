@@ -1,3 +1,4 @@
+#!./busybox sh
 
 ./busybox echo "#### OS COMP TEST GROUP START libctest ####"
 ./run-static.sh

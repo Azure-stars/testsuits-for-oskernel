@@ -1,4 +1,4 @@
-DOCKER ?= alicesama/os-contest-image:v0.1
+DOCKER ?= alicesama/os-contest-image:v0.2
 ARCH ?= riscv64
 
 MUSL_PREFIX ?= $(ARCH)-linux-musl

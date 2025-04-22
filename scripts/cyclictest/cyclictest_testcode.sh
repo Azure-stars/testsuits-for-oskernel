@@ -4,7 +4,7 @@
 run_cyclictest() {
     echo "====== cyclictest $1 begin ======"
     ./cyclictest $2
-    if [ $? == 0 ]; then
+    if [ $? -eq 0 ]; then
 	    ans="success"
     else
 	    ans="fail"
@@ -27,7 +27,7 @@ run_cyclictest STRESS_P8 "-a -i 1000 -t8  -p99 -D 1s -q"
 # Kill children in the parent process's interrupt processing, 
 # so SIGINT is used instead of SIGKILL
 kill -2 $hackbench_pid
-if [ $? == 0 ]; then
+if [ $? -eq 0 ]; then
     ans="success"
 else
     ans="fail, ignore STRESS result"

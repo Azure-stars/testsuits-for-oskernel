@@ -96,6 +96,8 @@ else
         OPTON += -mcpu=native -mtune=native
     else ifeq ($(ARCH),riscv64)
         OPTON += -march=rv64g
+   else ifeq ($(ARCH),aarch64)
+        OPTON += -march=armv8-a
     else ifeq ($(ARCH),loongarch64)
     else
         OPTON += -march=native -mtune=native

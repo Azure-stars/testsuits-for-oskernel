@@ -12,7 +12,7 @@ run_iperf() {
     echo "====== iperf $name begin ======"
 
     $iperf -c $host -p $port -t 2 -i 0 $args
-    if [ $? == 0 ]; then
+    if [ $? -eq 0 ]; then
 	    ans="success"
     else
 	    ans="fail"

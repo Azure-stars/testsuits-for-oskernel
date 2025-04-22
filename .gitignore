@@ -21,14 +21,16 @@ lua/src/lua
 lua/src/luac
 time-test/time-test
 netperf/doc/netperf.info
+netperf/netperf-2.7.0
 time-test/time-test
 copy-file-range-test/copy-file-range-test-*
 interrupts-test/interrupts-test-*
-
+UnixBench/pgms
 k210/disk.img*
 k210/img.kfpkg
 *.img.gz
 
-lmbench_src/libtirpc-1.3.6/
-rt-tests-2.7/numactl-2.0.14/
+rt-tests-2.7/numactl-2.0.19/
 rt-tests-2.7/__pycache__
+
+.vscode/

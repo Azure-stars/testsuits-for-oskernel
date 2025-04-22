@@ -1,4 +1,4 @@
-#!/bin/bash
+#!./busybox sh
 
 #export CC=gcc
 
@@ -26,9 +26,9 @@ UB_BINDIR=./ ./execl 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox g
 ./fstime -c -t 20 -b 4096 -m 8000 | ./busybox grep -o "COPY COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench FS_COPY_BIG test(KBps): "$0}'
 
 
-./looper 20 ./multi.sh 1 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SHELL1 test(lpm): "$0}'
-./looper 20 ./multi.sh 8 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SHELL8 test(lpm): "$0}'
-./looper 20 ./multi.sh 16 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SHELL16 test(lpm): "$0}'
+./looper 20 sh ./multi.sh 1 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SHELL1 test(lpm): "$0}'
+./looper 20 sh ./multi.sh 8 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SHELL8 test(lpm): "$0}'
+./looper 20 sh ./multi.sh 16 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench SHELL16 test(lpm): "$0}'
 #./looper 30 dc < ../testdir/dc.dat 2>&1
 
 ./arithoh 10 | ./busybox grep -o "COUNT|[[:digit:]]\+|" | ./busybox grep -o "[[:digit:]]\+" | ./busybox awk '{print "Unixbench ARITHOH test(lps): "$0}'

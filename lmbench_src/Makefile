@@ -20,12 +20,7 @@ SHELL=/bin/sh
 HOST=$(patsubst %-gcc,%,$(CC))
 
 build:
-	mkdir -p /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/usr/include/
-	cp -fr /opt/toolchain-loongarch64-linux-gnu-gcc8-host-x86_64-2022-07-18/sysroot/usr/include/sys /opt/loongarch64-linux-musl-cross/loongarch64-linux-musl/usr/include/
-	rm -fr libtirpc-1.3.6
-	tar zxf libtirpc-1.3.6.tar.gz
-	cd libtirpc-1.3.6 && ./configure --host=${HOST} -disable-shared --disable-gssapi && make -j 8
-	cd ..
+	cd libtirpc-1.3.6 && ./configure --host=$(HOST) --disable-shared --disable-gssapi && make clean && make -j 8 && cd ..
 	cd src && $(MAKE)
 
 oscomp:

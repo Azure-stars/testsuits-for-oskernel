@@ -1,0 +1,133 @@
+libtirpc_la-debug.lo: debug.c \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/stdc-predef.h ../config.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/sys/types.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/features.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/features-time64.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/wordsize.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/timesize.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/sys/cdefs.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/long-double.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/gnu/stubs.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/gnu/stubs-lp64d.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/typesizes.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/time64.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/clock_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/clockid_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/time_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/timer_t.h \
+ /usr/loongarch64-linux-gnu/lib/gcc/loongarch64-linux-gnu/13.2.0/include/stddef.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/stdint-intn.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/endian.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/endian.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/endianness.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/byteswap.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/uintn-identity.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/sys/select.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/select.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/sigset_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__sigset_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/struct_timeval.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/struct_timespec.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/pthreadtypes.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/thread-shared-types.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/pthreadtypes-arch.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/atomic_wide_counter.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/struct_mutex.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/struct_rwlock.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/stdio.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/libc-header-start.h \
+ /usr/loongarch64-linux-gnu/lib/gcc/loongarch64-linux-gnu/13.2.0/include/stdarg.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__fpos_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__mbstate_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__fpos64_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__FILE.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/FILE.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/struct_FILE.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/cookie_io_functions_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/stdio_lim.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/floatn.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/floatn-common.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/stdio.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/unistd.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/posix_opt.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/environments.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/confname.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/getopt_posix.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/getopt_core.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/unistd_ext.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/linux/close_range.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/syslog.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/sys/syslog.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/syslog-path.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/string.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/locale_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__locale_t.h \
+ /usr/loongarch64-linux-gnu/sysroot/usr/include/strings.h debug.h
+/usr/loongarch64-linux-gnu/sysroot/usr/include/stdc-predef.h:
+../config.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/sys/types.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/features.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/features-time64.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/wordsize.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/timesize.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/sys/cdefs.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/long-double.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/gnu/stubs.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/gnu/stubs-lp64d.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/typesizes.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/time64.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/clock_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/clockid_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/time_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/timer_t.h:
+/usr/loongarch64-linux-gnu/lib/gcc/loongarch64-linux-gnu/13.2.0/include/stddef.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/stdint-intn.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/endian.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/endian.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/endianness.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/byteswap.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/uintn-identity.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/sys/select.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/select.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/sigset_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__sigset_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/struct_timeval.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/struct_timespec.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/pthreadtypes.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/thread-shared-types.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/pthreadtypes-arch.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/atomic_wide_counter.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/struct_mutex.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/struct_rwlock.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/stdio.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/libc-header-start.h:
+/usr/loongarch64-linux-gnu/lib/gcc/loongarch64-linux-gnu/13.2.0/include/stdarg.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__fpos_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__mbstate_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__fpos64_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__FILE.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/FILE.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/struct_FILE.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/cookie_io_functions_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/stdio_lim.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/floatn.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/floatn-common.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/stdio.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/unistd.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/posix_opt.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/environments.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/confname.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/getopt_posix.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/getopt_core.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/unistd_ext.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/linux/close_range.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/syslog.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/sys/syslog.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/syslog-path.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/string.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/locale_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/bits/types/__locale_t.h:
+/usr/loongarch64-linux-gnu/sysroot/usr/include/strings.h:
+debug.h:

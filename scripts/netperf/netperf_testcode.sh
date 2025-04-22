@@ -7,7 +7,7 @@ port=12865
 run_netperf() {
     echo "====== netperf $1 begin ======"
     ./netperf -H $ip -p $port -t $1 -l 1 -- $2
-    if [ $? == 0 ]; then
+    if [ $? -eq 0 ]; then
 	    ans="success"
     else
 	    ans="fail"

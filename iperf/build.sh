@@ -1,5 +1,3 @@
-#!/bin/bash
-
 make clean
 
 if [[ "$1" == *"riscv"* ]]; then

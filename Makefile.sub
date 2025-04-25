@@ -70,7 +70,7 @@ cyclictest:  .PHONY
 	cp scripts/cyclictest/cyclictest_testcode.sh $(DESTDIR)/
 
 ltp: .PHONY
-	cd ltp-full-20240524 && ./build-oscomp.sh $(DESTDIR)
+	cd ltp-full-20240524 && ./build-oscomp.sh --prefix $(DESTDIR) --cross $(PREFIX)
 	cp scripts/ltp/* $(DESTDIR)/
 
 netperf: .PHONY

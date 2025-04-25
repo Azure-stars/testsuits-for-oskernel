@@ -30,8 +30,8 @@ build-glibc:
 	cp ${GLIBC_SO_PATH} sdcard/${ARCH}/glibc/lib
 	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/${ARCH}/glibc/*_testcode.sh
 
-sdcard: build-all .PHONY
-	dd if=/dev/zero of=sdcard-${ARCH}.img count=128 bs=1M
+sdcard: build-all
+	dd if=/dev/zero of=sdcard-${ARCH}.img count=4096 bs=1M
 	mkfs.ext4 sdcard-${ARCH}.img
 	mkdir -p mnt
 	mount sdcard-${ARCH}.img mnt
@@ -42,10 +42,11 @@ sdcard: build-all .PHONY
 clean:
 	make -f Makefile.sub ARCH=${ARCH} clean
 	rm -rf sdcard/${ARCH}/*
+	rm -rf sdcard/${ARCH}.img
 	rm -rf sdcard-${ARCH}.img.gz
 
 docker:
 	docker run --rm -it -v .:/code --entrypoint bash -w /code --privileged $(DOCKER)
 
 
-.PHONY:
+.PHONY: all build-all build-musl build-glibc sdcard clean docker

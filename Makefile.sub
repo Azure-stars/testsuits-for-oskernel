@@ -5,7 +5,7 @@ STRIP := $(PREFIX)strip
 DESTDIR ?= $(shell pwd)/sdcard/riscv/glibc
 ARCH ?= riscv64
 
-all: netperf basic busybox lua libc-test iozone unixbench iperf libcbench lmbench_src cyclictest
+all: netperf basic busybox lua libc-test iozone unixbench iperf libcbench lmbench_src cyclictest ltp
 
 basic: .PHONY
 	make -C basic/user all CHAPTER=7 ARCH=$(ARCH)

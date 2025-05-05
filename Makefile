@@ -8,8 +8,18 @@ GLIBC_PREFIX ?= $(ARCH)-linux-gnu
 
 ifeq ($(ARCH), x86_64)
 GLIBC_SO_PATH ?= /lib/x86_64-linux-gnu/libc.so.6
+GLIBC_LINUX_SO_PATH ?= /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+else ifeq ($(ARCH), loongarch64)
+GLIBC_SO_PATH ?= /usr/loongarch64-linux-gnu/lib/libc.so.6
+GLIBC_LINUX_SO_PATH ?= /usr/loongarch64-linux-gnu/sysroot/usr/lib64/ld-linux-loongarch-lp64d.so.1
+else ifeq ($(ARCH), aarch64)
+GLIBC_SO_PATH ?= /usr/aarch64-linux-gnu/lib/libc.so.6
+GLIBC_LINUX_SO_PATH ?= /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1
+else ifeq ($(ARCH), riscv64)
+GLIBC_SO_PATH ?= /usr/riscv64-linux-gnu/lib/libc.so.6
+GLIBC_LINUX_SO_PATH ?= /usr/riscv64-linux-gnu/lib/ld-linux-riscv64-lp64d.so.1
 else
-GLIBC_SO_PATH ?= /usr/$(GLIBC_PREFIX)/lib/libc.so.6
+error "Unsupported architecture: ${ARCH}"
 endif
 
 all: sdcard
@@ -28,6 +38,7 @@ build-glibc:
 	mkdir -p sdcard/${ARCH}/glibc
 	make -f Makefile.sub ARCH=${ARCH} PREFIX=${GLIBC_PREFIX}- DESTDIR=$(shell pwd)/sdcard/${ARCH}/glibc
 	cp ${GLIBC_SO_PATH} sdcard/${ARCH}/glibc/lib
+	cp ${GLIBC_LINUX_SO_PATH} sdcard/${ARCH}/glibc/lib
 	sed -E -i 's/#### OS COMP TEST GROUP ([^ ]+) ([^ ]+) ####/#### OS COMP TEST GROUP \1 \2-glibc ####/g' sdcard/${ARCH}/glibc/*_testcode.sh
 
 sdcard: build-all

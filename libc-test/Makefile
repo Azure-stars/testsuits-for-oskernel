@@ -23,9 +23,6 @@ CFLAGS += -Werror=implicit-function-declaration -Werror=implicit-int -Werror=poi
 CFLAGS += -Os -s
 CFLAGS += -Isrc/common/
 LDFLAGS += -Os -s -lpthread -lm -lrt
-ifneq ($(findstring musl,$(PREFIX)),)
-LDFLAGS += -static -no-pie
-endif
 
 # CFLAGS += -D_FILE_OFFSET_BITS=64
 # LDLIBS += -lcrypt -ldl -lresolv -lutil -lpthread

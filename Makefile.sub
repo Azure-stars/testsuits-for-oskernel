@@ -8,7 +8,7 @@ ARCH ?= riscv64
 all: netperf basic busybox lua libc-test iozone unixbench iperf libcbench lmbench_src cyclictest ltp
 
 basic: .PHONY
-	make -C basic/user all CHAPTER=7 ARCH=$(ARCH)
+	make -C basic/user all CHAPTER=7 ARCH=$(ARCH) PREFIX=$(PREFIX)
 	mkdir -p $(DESTDIR)/basic
 	cp -r basic/user/build/$(ARCH)/* $(DESTDIR)/basic/
 	cp scripts/basic/basic_testcode.sh $(DESTDIR)
@@ -27,8 +27,7 @@ lua: .PHONY
 libc-test: .PHONY
 	make -C libc-test disk PREFIX=$(PREFIX) -j 1
 	cp -r libc-test/disk/* $(DESTDIR)/
-	mkdir -p $(DESTDIR)/lib/
-	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(DESTDIR)/lib
+	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(DESTDIR)
 	rm $(DESTDIR)/run-all.sh
 	cp scripts/libctest/libctest_testcode.sh $(DESTDIR)
 

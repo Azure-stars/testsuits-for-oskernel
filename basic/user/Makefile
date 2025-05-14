@@ -1,11 +1,12 @@
 ARCH ?= riscv64
+PREFIX ?= $(ARCH)-linux-gnu-
 MODE ?= release
 CHAPTER ?= 7
 app_dir = src
 src_dir := build/$(ARCH)
 bin_dir := build/bin
 out_dir := target
-cmake_build_args := -DARCH=$(ARCH) -DCHAPTER=$(CHAPTER)
+cmake_build_args := -DARCH=$(ARCH) -DCHAPTER=$(CHAPTER) -DPREFIX=$(PREFIX)
 ifeq ($(MODE), release)
 cmake_build_args += -DCMAKE_BUILD_TYPE=Release
 else ifeq ($(MODE), debug)
